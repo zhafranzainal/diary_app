@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "945487894278",
+    "firebase_url": "https://diary-app-fdcfc-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "diary-app-fdcfc",
     "storage_bucket": "diary-app-fdcfc.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "945487894278-7b535h41t9glm0uri3fvjhd568tn8vgu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.diaryapp",
+            "certificate_hash": "2229e793191e3ad8fba94bb5d60e0df99966148b"
+          }
+        },
         {
           "client_id": "945487894278-r0h7oahtj8kqu134rpd7v1d110tvboks.apps.googleusercontent.com",
           "client_type": 3
