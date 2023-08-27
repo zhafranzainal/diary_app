@@ -1,9 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddDiaryActivity">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/cream"
+        app:menu="@menu/add_diary_toolbar_menu"
+        app:navigationIcon="@drawable/ic_arrow_back" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/edit_text_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar"
+        android:background="@color/cream"
+        android:hint="Enter a title"
+        android:maxLength="50"
+        android:padding="20dp"
+        android:textColorHint="@color/brownish" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_text_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/body_edit_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:hint="Write something..."
+            android:lines="3"
+            android:maxLength="200"
+            android:padding="10dp"
+            android:textColorHint="@color/brownish" />
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/add_diary_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/save_button"
+        android:layout_below="@+id/scrollView"
+        android:layout_margin="20dp"
+        android:background="@color/cream"
+        android:scaleType="fitXY" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/add_diary_image"
+        android:layout_alignEnd="@+id/add_diary_image"
+        android:layout_alignBottom="@+id/add_diary_image"
+        android:background="@color/grey_50_alpha"
+        android:backgroundTint="@color/brownish"
+        android:hint="Add location"
+        android:padding="5dp"
+        android:textColorHint="@color/white"
+
+        />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/cream"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:text="Save Diary"
+        android:textAllCaps="false"
+        android:textColor="@color/brownish" />
+
+</RelativeLayout>
