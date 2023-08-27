@@ -7,7 +7,7 @@
     tools:context=".AddDiaryActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/add_diary_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/cream"
@@ -18,7 +18,7 @@
         android:id="@+id/edit_text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar"
+        android:layout_below="@+id/add_diary_toolbar"
         android:background="@color/cream"
         android:hint="Enter a title"
         android:maxLength="50"
