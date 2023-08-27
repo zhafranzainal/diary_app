@@ -6,14 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MaterialToolbar mToolbar;
     private FirebaseAuth mAuth;
 
     @Override
@@ -23,9 +24,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mAuth = FirebaseAuth.getInstance();
-        mToolbar = findViewById(R.id.main_activity_toolbar);
+        MaterialToolbar toolbar = findViewById(R.id.main_activity_toolbar);
+        ExtendedFloatingActionButton addDiaryButton = findViewById(R.id.add_diary_button);
 
-        mToolbar.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+        toolbar.getMenu().getItem(0).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
 
             @Override
             public boolean onMenuItemClick(@NonNull MenuItem item) {
@@ -40,6 +42,21 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 return true;
+            }
+
+        });
+
+        addDiaryButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                FirebaseUser user = mAuth.getCurrentUser();
+
+                if (user != null) {
+                    startActivity(new Intent(getApplicationContext(), AddDiaryActivity.class));
+                }
+                
             }
 
         });
