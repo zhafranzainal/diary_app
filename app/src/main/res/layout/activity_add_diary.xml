@@ -48,7 +48,7 @@
         android:id="@+id/add_diary_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/save_button"
+        android:layout_above="@+id/save_diary_button"
         android:layout_below="@+id/scrollView"
         android:layout_margin="20dp"
         android:background="@color/cream"
@@ -70,7 +70,7 @@
         android:visibility="invisible" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/save_button"
+        android:id="@+id/save_diary_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -85,8 +85,8 @@
         android:id="@+id/add_diary_progress_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@id/save_button"
-        android:layout_alignBottom="@id/save_button"
+        android:layout_alignTop="@id/save_diary_button"
+        android:layout_alignBottom="@id/save_diary_button"
         android:layout_alignParentEnd="true"
         android:elevation="10dp"
         android:indeterminate="true"
