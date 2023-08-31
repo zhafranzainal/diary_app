@@ -81,4 +81,19 @@
         android:textAllCaps="false"
         android:textColor="@color/brownish" />
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/add_diary_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/save_button"
+        android:layout_alignBottom="@id/save_button"
+        android:layout_alignParentEnd="true"
+        android:elevation="10dp"
+        android:indeterminate="true"
+        android:indeterminateBehavior="cycle"
+        android:padding="10dp"
+        android:visibility="invisible"
+        app:indicatorColor="@color/brownish"
+        app:indicatorSize="20dp" />
+
 </RelativeLayout>
