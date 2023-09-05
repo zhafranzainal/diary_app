@@ -48,7 +48,7 @@
         android:padding="20dp"
         android:shadowColor="@color/light_greyish"
         android:shadowRadius="30"
-        android:text="Get started with your digital diary today "
+        android:text="Get started with your digital diary today"
         android:textColor="@color/brownish"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
