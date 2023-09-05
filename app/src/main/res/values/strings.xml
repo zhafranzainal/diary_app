@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Diary App</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque molestie nisl nisi, at sagittis diam ullamcorper ut. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam metus sem, vestibulum et metus ut, rutrum consectetur ligula. Vestibulum eu ante urna.</string>
 </resources>
