@@ -205,8 +205,8 @@ public class AddDiaryActivity extends AppCompatActivity {
 
                 Glide.with(this)
                         .load(mSelectedImage)
-                        .transition(DrawableTransitionOptions.withCrossFade())
                         .transform(new CenterCrop())
+                        .transition(DrawableTransitionOptions.withCrossFade())
                         .into(mDiaryImage);
 
                 mDiaryImage.setVisibility(View.VISIBLE);
