@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 if (user != null) {
                     startActivity(new Intent(getApplicationContext(), AddDiaryActivity.class));
                 }
-                
+
             }
 
         });
