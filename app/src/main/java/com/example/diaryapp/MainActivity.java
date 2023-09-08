@@ -9,7 +9,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private RecyclerView mRecyclerView;
+    private LottieAnimationView mDiaryAnimationView;
+    private TextView mNoDiaryTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         MaterialToolbar toolbar = findViewById(R.id.main_activity_toolbar);
         ExtendedFloatingActionButton addDiaryButton = findViewById(R.id.add_diary_button);
         mRecyclerView = findViewById(R.id.diary_list_recycler_view);
+        mDiaryAnimationView = findViewById(R.id.diary_lottie_animation);
+        mNoDiaryTextView = findViewById(R.id.no_diary_text_view);
 
         LinearLayoutManager horizontalLayoutManager = new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(horizontalLayoutManager);
@@ -116,6 +122,11 @@ public class MainActivity extends AppCompatActivity {
                     diaryAdapter.notifyDataSetChanged();
 
                 } else {
+
+                    // if no diary yet, display diary animation with 'no diary' text
+                    mDiaryAnimationView.setVisibility(View.VISIBLE);
+                    mNoDiaryTextView.setVisibility(View.VISIBLE);
+                    mDiaryAnimationView.playAnimation();
 
                 }
 

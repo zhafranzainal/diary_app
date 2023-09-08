@@ -47,4 +47,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_activity_toolbar" />
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/diary_lottie_animation"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:adjustViewBounds="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/diary_animation" />
+
+    <TextView
+        android:id="@+id/no_diary_text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:fontFamily="@font/pacifico"
+        android:shadowColor="@color/cream"
+        android:shadowRadius="30"
+        android:text="No diary entry yet"
+        android:textAllCaps="true"
+        android:textColor="@color/brownish_50_alpha"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diary_lottie_animation" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
