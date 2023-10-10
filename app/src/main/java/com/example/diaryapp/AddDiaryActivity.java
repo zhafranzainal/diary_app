@@ -203,19 +203,25 @@ public class AddDiaryActivity extends AppCompatActivity {
 
                 mSelectedImage = data.getData();
 
-                Glide.with(this)
-                        .load(mSelectedImage)
-                        .transform(new CenterCrop())
-                        .transition(DrawableTransitionOptions.withCrossFade())
-                        .into(mDiaryImage);
-
-                mDiaryImage.setVisibility(View.VISIBLE);
-                mDiaryLocation.setVisibility(View.VISIBLE);
-                mDiaryLocation.requestFocus();
+                predictLandmark(mSelectedImage);
 
             }
 
         }
+
+    }
+
+    private void predictLandmark(Uri image) {
+
+        Glide.with(this)
+                .load(image)
+                .transform(new CenterCrop())
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(mDiaryImage);
+
+        mDiaryImage.setVisibility(View.VISIBLE);
+        mDiaryLocation.setVisibility(View.VISIBLE);
+        mDiaryLocation.requestFocus();
 
     }
 
