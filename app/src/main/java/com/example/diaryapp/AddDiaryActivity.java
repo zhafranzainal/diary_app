@@ -247,6 +247,10 @@ public class AddDiaryActivity extends AppCompatActivity {
             TensorImage tensorImage = new TensorImage(DataType.UINT8);
 
             // Initialize Tensor buffer object to feed it to the model, based on the required shape for input which is [1, 321, 321, 3]
+            // - Batch size: 1 (processing one input example at a time)
+            // - Height: 321 units (image height)
+            // - Width: 321 units (image width)
+            // - Color channels: 3 (representing RGB color information)
             TensorBuffer tensorBuffer = TensorBuffer.createFixedSize(new int[]{1, 321, 321, 3}, DataType.UINT8);
 
             tensorImage.load(bitmap);
