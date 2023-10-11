@@ -11,8 +11,11 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,6 +24,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.example.diaryapp.ml.LiteModelOnDeviceVisionClassifierLandmarksClassifierAsiaV11;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
@@ -36,7 +40,18 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.tensorflow.lite.DataType;
+import org.tensorflow.lite.support.common.ops.CastOp;
+import org.tensorflow.lite.support.image.ImageProcessor;
+import org.tensorflow.lite.support.image.TensorImage;
+import org.tensorflow.lite.support.image.ops.ResizeOp;
+import org.tensorflow.lite.support.label.Category;
+import org.tensorflow.lite.support.tensorbuffer.TensorBuffer;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 
 public class AddDiaryActivity extends AppCompatActivity {
 
@@ -211,17 +226,68 @@ public class AddDiaryActivity extends AppCompatActivity {
 
     }
 
-    private void predictLandmark(Uri image) {
+    private void predictLandmark(Uri selectedImage) {
 
-        Glide.with(this)
-                .load(image)
-                .transform(new CenterCrop())
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(mDiaryImage);
+        try {
 
-        mDiaryImage.setVisibility(View.VISIBLE);
-        mDiaryLocation.setVisibility(View.VISIBLE);
-        mDiaryLocation.requestFocus();
+            // Convert selected image uri to bitmap
+            InputStream imageStream = getApplication().getContentResolver().openInputStream(selectedImage);
+            Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
+
+            // Preprocess the image before feeding to model based on input constraint
+            ImageProcessor imageProcessor = new ImageProcessor.Builder()
+                    .add(new ResizeOp(321, 321, ResizeOp.ResizeMethod.NEAREST_NEIGHBOR))
+                    .add(new CastOp(DataType.UINT8))
+                    .build();
+
+            // Load model
+            LiteModelOnDeviceVisionClassifierLandmarksClassifierAsiaV11 model = LiteModelOnDeviceVisionClassifierLandmarksClassifierAsiaV11.newInstance(this);
+
+            // Initialize tensor image object with the required input data type which is UINT8
+            TensorImage tensorImage = new TensorImage(DataType.UINT8);
+
+            // Initialize Tensor buffer object to feed it to the model, based on the required shape for input which is [1, 321, 321, 3]
+            TensorBuffer tensorBuffer = TensorBuffer.createFixedSize(new int[]{1, 321, 321, 3}, DataType.UINT8);
+
+            tensorImage.load(bitmap);
+            TensorImage processedTensorImage = imageProcessor.process(tensorImage);
+            tensorBuffer.loadBuffer(processedTensorImage.getBuffer());
+
+            // Runs model inference and gets prediction result
+            LiteModelOnDeviceVisionClassifierLandmarksClassifierAsiaV11.Outputs outputs = model.process(tensorBuffer);
+            List<Category> probability = outputs.getProbabilityAsCategoryList();
+
+            // Releases model resources if no longer used
+            model.close();
+
+            // Find label that has highest probability
+            float max = 0.0f;
+            int bestPredictIndex = 0;
+            for (int i = 0; i < probability.size(); i++) {
+                if (probability.get(i).getScore() > max) {
+                    max = probability.get(i).getScore();
+                    bestPredictIndex = i;
+                }
+            }
+
+            Glide.with(this)
+                    .load(selectedImage)
+                    .transform(new CenterCrop())
+                    .transition(DrawableTransitionOptions.withCrossFade())
+                    .into(mDiaryImage);
+
+            mDiaryImage.setVisibility(View.VISIBLE);
+
+            mDiaryLocation.setVisibility(View.VISIBLE);
+            Log.d("PROBABILITY", "highest probability:" + probability.get(bestPredictIndex).getScore());
+            mDiaryLocation.setText(probability.get(bestPredictIndex).getLabel());
+
+            // Enable focus on edit text so user knows it is editable, in case the prediction is wrong
+            mDiaryLocation.requestFocus(mDiaryLocation.getTextDirection());
+
+        } catch (IOException e) {
+            mDiaryLocation.setText("Could not predict the name of your selected image");
+        }
 
     }
 
